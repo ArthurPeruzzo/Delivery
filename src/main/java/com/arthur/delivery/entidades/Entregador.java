@@ -1,7 +1,11 @@
 package com.arthur.delivery.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +19,10 @@ public class Entregador implements Serializable {
     private String email;
     private String telefone;
     private Integer CNH;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "entregador")
+    private List<Entrega> entregas = new ArrayList<>();
 
     public Entregador(){
     }
