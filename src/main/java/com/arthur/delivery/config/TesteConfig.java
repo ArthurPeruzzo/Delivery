@@ -2,8 +2,10 @@ package com.arthur.delivery.config;
 
 import com.arthur.delivery.entidades.Cliente;
 import com.arthur.delivery.entidades.Endereco;
+import com.arthur.delivery.entidades.Entregador;
 import com.arthur.delivery.repositories.ClienteRepository;
 import com.arthur.delivery.repositories.EnderecoRepository;
+import com.arthur.delivery.repositories.EntregadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +21,10 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
     private ClienteRepository clienteRepository;
 
     @Autowired
-    EnderecoRepository enderecoRepository;
+    private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private EntregadorRepository entregadorRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -33,6 +38,12 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
 
         clienteRepository.saveAll(Arrays.asList(cliente1, cliente2, cliente3));
 
+        Entregador entregador1 = new Entregador(null, "Joao", "joao@gmail.com", "323213", 321331);
+        Entregador entregador2 = new Entregador(null, "Marcelo", "marcelo@gmail.com", "9879213", 45353331);
+        Entregador entregador3 = new Entregador(null, "Felipe", "felipe@gmail.com", "95843213", 3876831);
+
+        entregadorRepository.saveAll(Arrays.asList(entregador1, entregador2, entregador3));
     }
+
 }
 
