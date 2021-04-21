@@ -1,5 +1,7 @@
 package com.arthur.delivery.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,16 +16,21 @@ public class Cliente implements Serializable {
     private String telefone;
     private Integer CPF;
 
+    @JsonIgnore
+    @OneToOne
+    @MapsId
+    private Endereco endereco;
 
     public Cliente(){
     }
 
-    public Cliente(Long id, String nome, String email, String telefone, Integer CPF) {
+    public Cliente(Long id, String nome, String email, String telefone, Integer CPF, Endereco endereco) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.CPF = CPF;
+        this.endereco = endereco;
     }
 
     public Long getId() {
@@ -64,6 +71,14 @@ public class Cliente implements Serializable {
 
     public void setCPF(Integer CPF) {
         this.CPF = CPF;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     @Override

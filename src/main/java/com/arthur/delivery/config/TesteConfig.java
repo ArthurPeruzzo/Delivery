@@ -23,17 +23,16 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
 
     @Override
     public void run(String... args) throws Exception {
-        Cliente cliente1 = new Cliente(null, "Arthur", "arthur@gmail.com", "99323502", 12345674);
-        Cliente cliente2 = new Cliente(null, "Ernani", "ernani@gmail.com", "96324322", 142342414);
-        Cliente cliente3 = new Cliente(null, "Silvia", "silvia@gmail.com", "99321502", 142345574);
-
-        clienteRepository.saveAll(Arrays.asList(cliente1, cliente2, cliente3));
-
         Endereco endereco1 = new Endereco(null, "Coronel passos maia", "Centro", "Sao domingos", "SC");
         Endereco endereco2 = new Endereco(null, "Av.Brasil", "Centro", "São Paulo", "SP");
         Endereco endereco3 = new Endereco(null, "Rua Jardim Souza", "Centro", "Pato Branco", "PR");
 
-        enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2, endereco3));
+        Cliente cliente1 = new Cliente(null, "Arthur", "arthur@gmail.com", "99323502", 12345674, endereco1);
+        Cliente cliente2 = new Cliente(null, "Ernani", "ernani@gmail.com", "96324322", 142342414, endereco2);
+        Cliente cliente3 = new Cliente(null, "Silvia", "silvia@gmail.com", "99321502", 142345574, endereco3);
+
+        clienteRepository.saveAll(Arrays.asList(cliente1, cliente2, cliente3));
+
     }
 }
 
