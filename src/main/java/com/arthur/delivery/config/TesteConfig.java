@@ -1,13 +1,7 @@
 package com.arthur.delivery.config;
 
-import com.arthur.delivery.entidades.Cliente;
-import com.arthur.delivery.entidades.Endereco;
-import com.arthur.delivery.entidades.Entrega;
-import com.arthur.delivery.entidades.Entregador;
-import com.arthur.delivery.repositories.ClienteRepository;
-import com.arthur.delivery.repositories.EnderecoRepository;
-import com.arthur.delivery.repositories.EntregaRepository;
-import com.arthur.delivery.repositories.EntregadorRepository;
+import com.arthur.delivery.entidades.*;
+import com.arthur.delivery.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -33,13 +27,14 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
     @Autowired
     EntregaRepository entregaRepository;
 
+    @Autowired
+    ItemRepository itemRepository;
+
     @Override
     public void run(String... args) throws Exception {
         Endereco endereco1 = new Endereco(null, "Coronel passos maia", "Centro", "Sao domingos", "SC");
         Endereco endereco2 = new Endereco(null, "Av.Brasil", "Centro", "São Paulo", "SP");
         Endereco endereco3 = new Endereco(null, "Rua Jardim Souza", "Centro", "Pato Branco", "PR");
-
-
 
         Cliente cliente1 = new Cliente(null, "Arthur", "arthur@gmail.com", "99323502", 12345674, endereco1);
         Cliente cliente2 = new Cliente(null, "Ernani", "ernani@gmail.com", "96324322", 142342414, endereco2);
@@ -58,6 +53,12 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
         Entrega entrega3 = new Entrega(null, sdf.parse("22/03/2021 21:10:35"), sdf.parse("22/03/2021 21:55:12"), 3, entregador3);
 
         entregaRepository.saveAll(Arrays.asList(entrega1, entrega2, entrega3));
+
+        Item item1 = new Item(null, "X-salada", 25.00);
+        Item item2 = new Item(null, "X-bacon", 30.00);
+        Item item3 = new Item(null, "pizza-quatro-queijos", 40.00);
+
+        itemRepository.saveAll(Arrays.asList(item1, item2, item3));
 
     }
 
