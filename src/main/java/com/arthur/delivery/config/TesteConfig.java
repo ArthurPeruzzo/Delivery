@@ -1,6 +1,7 @@
 package com.arthur.delivery.config;
 
 import com.arthur.delivery.entidades.*;
+import com.arthur.delivery.entidades.enums.TipoPagamento;
 import com.arthur.delivery.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -29,6 +30,9 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
 
     @Autowired
     ItemRepository itemRepository;
+
+    @Autowired
+    PedidoRepository pedidoRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -59,6 +63,12 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
         Item item3 = new Item(null, "pizza-quatro-queijos", 40.00);
 
         itemRepository.saveAll(Arrays.asList(item1, item2, item3));
+
+        Pedido pedido1 = new Pedido(null, sdf.parse("20/03/2021 19:25:35"), 10.00, TipoPagamento.DINHEIRO);
+        Pedido pedido2 = new Pedido(null, sdf.parse("21/03/2021 20:43:35"), 10.00, TipoPagamento.CARTAO);
+        Pedido pedido3 = new Pedido(null, sdf.parse("22/03/2021 22:15:35"), 10.00, TipoPagamento.DINHEIRO);
+
+        pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 
     }
 
