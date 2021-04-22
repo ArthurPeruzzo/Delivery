@@ -18,14 +18,19 @@ public class Pedido implements Serializable {
     private Double valorEntrega;
     private TipoPagamento TipoPagamento;
 
+    @ManyToOne
+    @JoinColumn(name = "Entrega_id")//fala qual vai ser o nome da chave estrangeira
+    private Entrega entregas;
+
     public Pedido(){
     }
 
-    public Pedido(Long id, Date horaPedido, Double valorEntrega, TipoPagamento tipoPagamento) {
+    public Pedido(Long id, Date horaPedido, Double valorEntrega, TipoPagamento tipoPagamento, Entrega entregas) {
         this.id = id;
         this.horaPedido = horaPedido;
         this.valorEntrega = valorEntrega;
         TipoPagamento = tipoPagamento;
+        this.entregas = entregas;
     }
 
     public Long getId() {
@@ -58,6 +63,14 @@ public class Pedido implements Serializable {
 
     public void setTipoPagamento(TipoPagamento tipoPagamento) {
         TipoPagamento = tipoPagamento;
+    }
+
+    public Entrega getEntregas() {
+        return entregas;
+    }
+
+    public void setEntregas(Entrega entregas) {
+        this.entregas = entregas;
     }
 
     @Override

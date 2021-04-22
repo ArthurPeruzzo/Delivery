@@ -34,6 +34,9 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
     @Autowired
     PedidoRepository pedidoRepository;
 
+    @Autowired
+    PedidoItemRepository pedidoItemRepository;
+
     @Override
     public void run(String... args) throws Exception {
         Endereco endereco1 = new Endereco(null, "Coronel passos maia", "Centro", "Sao domingos", "SC");
@@ -54,7 +57,7 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
 
         Entrega entrega1 = new Entrega(null, sdf.parse("20/03/2021 19:25:35"), sdf.parse("20/03/2021 20:25:35"), 4, entregador1);
         Entrega entrega2 = new Entrega(null, sdf.parse("21/03/2021 20:34:23"), sdf.parse("21/03/2021 21:01:35"), 5, entregador2);
-        Entrega entrega3 = new Entrega(null, sdf.parse("22/03/2021 21:10:35"), sdf.parse("22/03/2021 21:55:12"), 3, entregador3);
+        Entrega entrega3 = new Entrega(null, sdf.parse("22/03/2021 21:10:35"), sdf.parse("22/03/2021 21:55:12"), 3, entregador1);
 
         entregaRepository.saveAll(Arrays.asList(entrega1, entrega2, entrega3));
 
@@ -64,11 +67,18 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
 
         itemRepository.saveAll(Arrays.asList(item1, item2, item3));
 
-        Pedido pedido1 = new Pedido(null, sdf.parse("20/03/2021 19:25:35"), 10.00, TipoPagamento.DINHEIRO);
-        Pedido pedido2 = new Pedido(null, sdf.parse("21/03/2021 20:43:35"), 10.00, TipoPagamento.CARTAO);
-        Pedido pedido3 = new Pedido(null, sdf.parse("22/03/2021 22:15:35"), 10.00, TipoPagamento.DINHEIRO);
+        Pedido pedido1 = new Pedido(null, sdf.parse("20/03/2021 19:25:35"), 10.00, TipoPagamento.DINHEIRO, entrega1);
+        Pedido pedido2 = new Pedido(null, sdf.parse("21/03/2021 20:43:35"), 10.00, TipoPagamento.CARTAO, entrega2);
+        Pedido pedido3 = new Pedido(null, sdf.parse("22/03/2021 22:15:35"), 10.00, TipoPagamento.DINHEIRO, entrega3);
 
         pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
+
+        PedidoItem pedidoItem1 = new PedidoItem(null, item1, 2, item1.getPreco());
+        PedidoItem pedidoItem2 = new PedidoItem(null, item2, 2, item2.getPreco());
+        PedidoItem pedidoItem3 = new PedidoItem(null, item1, 3, item1.getPreco());
+
+        pedidoItemRepository.saveAll(Arrays.asList(pedidoItem1, pedidoItem2, pedidoItem3));
+
 
     }
 

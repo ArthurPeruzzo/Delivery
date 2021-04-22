@@ -1,10 +1,13 @@
 package com.arthur.delivery.entidades;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,6 +24,10 @@ public class Entrega implements Serializable {
     @ManyToOne
     @JoinColumn(name = "Entregador_id")//fala qual vai ser o nome da chave estrangeira
     private Entregador entregador;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "entregas")
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Entrega(){
     }
@@ -71,6 +78,10 @@ public class Entrega implements Serializable {
 
     public void setEntregador(Entregador entregador) {
         this.entregador = entregador;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
     @Override

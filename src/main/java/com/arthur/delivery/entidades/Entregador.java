@@ -75,6 +75,10 @@ public class Entregador implements Serializable {
         this.CNH = CNH;
     }
 
+    public List<Entrega> getEntregas() {
+        return entregas;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,34 +1,39 @@
 package com.arthur.delivery.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_item")
-public class Item implements Serializable {
+@Table(name = "tb_pedidoItem")
+public class PedidoItem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
+    private Integer quantidade;
     private Double preco;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "item")
-    private List<PedidoItem> items = new ArrayList<>();
-
-    public Item(){
+    public Item getItem() {
+        return item;
     }
 
-    public Item(Long id, String nome, Double preco) {
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
+
+    public PedidoItem(){
+    }
+
+    public PedidoItem(Long id,Item item, Integer quantidade, Double preco) {
         this.id = id;
-        this.nome = nome;
+        this.quantidade = quantidade;
         this.preco = preco;
+        this.item = item;
     }
 
     public Long getId() {
@@ -39,12 +44,12 @@ public class Item implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public Integer getQuantidade() {
+        return quantidade;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
 
     public Double getPreco() {
@@ -55,16 +60,21 @@ public class Item implements Serializable {
         this.preco = preco;
     }
 
+    public Double subTotal(){
+        return preco * quantidade;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Item item = (Item) o;
-        return id.equals(item.id);
+        PedidoItem that = (PedidoItem) o;
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
