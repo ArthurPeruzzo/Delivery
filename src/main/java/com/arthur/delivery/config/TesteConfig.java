@@ -61,23 +61,27 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
 
         entregaRepository.saveAll(Arrays.asList(entrega1, entrega2, entrega3));
 
-        Item item1 = new Item(null, "X-salada", 25.00);
-        Item item2 = new Item(null, "X-bacon", 30.00);
-        Item item3 = new Item(null, "pizza-quatro-queijos", 40.00);
-
-        itemRepository.saveAll(Arrays.asList(item1, item2, item3));
-
-        Pedido pedido1 = new Pedido(null, sdf.parse("20/03/2021 19:25:35"), 10.00, TipoPagamento.DINHEIRO, entrega1);
-        Pedido pedido2 = new Pedido(null, sdf.parse("21/03/2021 20:43:35"), 10.00, TipoPagamento.CARTAO, entrega2);
-        Pedido pedido3 = new Pedido(null, sdf.parse("22/03/2021 22:15:35"), 10.00, TipoPagamento.DINHEIRO, entrega3);
+        Pedido pedido1 = new Pedido(null, sdf.parse("20/03/2021 19:25:35"), 10.00, TipoPagamento.DINHEIRO, entrega1,cliente1);
+        Pedido pedido2 = new Pedido(null, sdf.parse("21/03/2021 20:43:35"), 10.00, TipoPagamento.CARTAO, entrega2, cliente2);
+        Pedido pedido3 = new Pedido(null, sdf.parse("22/03/2021 22:15:35"), 10.00, TipoPagamento.DINHEIRO, entrega3, cliente3);
 
         pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 
-        PedidoItem pedidoItem1 = new PedidoItem(null, item1, 2, item1.getPreco());
-        PedidoItem pedidoItem2 = new PedidoItem(null, item2, 2, item2.getPreco());
-        PedidoItem pedidoItem3 = new PedidoItem(null, item1, 3, item1.getPreco());
+        Item item1 = new Item(null, "X-salada", 25.00, pedido1);
+        Item item2 = new Item(null, "X-bacon", 30.00, pedido2);
+        Item item3 = new Item(null, "pizza-quatro-queijos", 40.00, pedido3);
 
-        pedidoItemRepository.saveAll(Arrays.asList(pedidoItem1, pedidoItem2, pedidoItem3));
+        itemRepository.saveAll(Arrays.asList(item1, item2, item3));
+
+        //associacao item e pedido
+
+        PedidoItem pedidoItem1 = new PedidoItem(item1, pedido1, 4, item1.getPreco());
+        PedidoItem pedidoItem2 = new PedidoItem(item2, pedido1, 3, item2.getPreco());
+        PedidoItem pedidoItem3 = new PedidoItem(item3, pedido2, 2, item3.getPreco());
+        PedidoItem pedidoItem4 = new PedidoItem(item2, pedido3, 1, item2.getPreco());
+        PedidoItem pedidoItem5 = new PedidoItem(item1, pedido2, 3, item1.getPreco());
+
+        pedidoItemRepository.saveAll(Arrays.asList(pedidoItem1, pedidoItem2, pedidoItem3, pedidoItem4, pedidoItem5));
 
 
     }

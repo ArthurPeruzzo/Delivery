@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,16 +17,18 @@ public class Item implements Serializable {
     private Double preco;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "item")
-    private List<PedidoItem> items = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedidos;
 
     public Item(){
     }
 
-    public Item(Long id, String nome, Double preco) {
+    public Item(Long id, String nome, Double preco, Pedido pedidos) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
+        this.pedidos = pedidos;
     }
 
     public Long getId() {
@@ -53,6 +53,14 @@ public class Item implements Serializable {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public Pedido getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(Pedido pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override

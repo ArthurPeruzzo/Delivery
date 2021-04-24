@@ -1,5 +1,8 @@
 package com.arthur.delivery.entidades;
 
+import com.arthur.delivery.entidades.pk.PedidoItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -8,40 +11,19 @@ import java.util.Objects;
 @Table(name = "tb_pedidoItem")
 public class PedidoItem implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private PedidoItemPK id = new PedidoItemPK();
     private Integer quantidade;
     private Double preco;
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "item_id")
-    private Item item;
 
     public PedidoItem(){
     }
 
-    public PedidoItem(Long id,Item item, Integer quantidade, Double preco) {
-        this.id = id;
+    public PedidoItem(Item item, Pedido pedido, Integer quantidade, Double preco) {
+        id.setItem(item);
+        id.setPedido(pedido);
         this.quantidade = quantidade;
         this.preco = preco;
-        this.item = item;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Integer getQuantidade() {
@@ -63,6 +45,25 @@ public class PedidoItem implements Serializable {
     public Double subTotal(){
         return preco * quantidade;
     }
+
+    public Item getItem() {
+        return id.getItem();
+    }
+
+    public void setItem(Item item) {
+
+        id.setItem(item);
+    }
+
+    @JsonIgnore
+    public Pedido getPedido() {
+        return id.getPedido();
+    }
+
+    public void setPedido(Pedido pedido) {
+        id.setPedido(pedido);
+    }
+
 
     @Override
     public boolean equals(Object o) {

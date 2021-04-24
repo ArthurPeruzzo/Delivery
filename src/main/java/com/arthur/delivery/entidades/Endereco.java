@@ -1,5 +1,7 @@
 package com.arthur.delivery.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,6 +16,7 @@ import java.util.Objects;
         private String cidade;
         private String estado;
 
+        @JsonIgnore
         @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)//mapeamento para o cliente e endereco ter o mesmo id
         private Cliente cliente;
 

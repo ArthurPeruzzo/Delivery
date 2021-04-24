@@ -1,10 +1,13 @@
 package com.arthur.delivery.entidades;
 
 import com.arthur.delivery.entidades.enums.TipoPagamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,15 +25,23 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "Entrega_id")//fala qual vai ser o nome da chave estrangeira
     private Entrega entregas;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")//fala qual vai ser o nome da chave estrangeira
+    private Cliente cliente;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private List<PedidoItem> itens = new ArrayList<>();
+
     public Pedido(){
     }
 
-    public Pedido(Long id, Date horaPedido, Double valorEntrega, TipoPagamento tipoPagamento, Entrega entregas) {
+    public Pedido(Long id, Date horaPedido, Double valorEntrega, TipoPagamento tipoPagamento, Entrega entregas, Cliente cliente) {
         this.id = id;
         this.horaPedido = horaPedido;
         this.valorEntrega = valorEntrega;
         TipoPagamento = tipoPagamento;
         this.entregas = entregas;
+        this.cliente = cliente;
     }
 
     public Long getId() {
@@ -71,6 +82,18 @@ public class Pedido implements Serializable {
 
     public void setEntregas(Entrega entregas) {
         this.entregas = entregas;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<PedidoItem> getItens() {
+        return itens;
     }
 
     @Override
