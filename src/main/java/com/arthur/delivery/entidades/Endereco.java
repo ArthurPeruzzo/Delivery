@@ -20,6 +20,10 @@ import java.util.Objects;
         @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)//mapeamento para o cliente e endereco ter o mesmo id
         private Cliente cliente;
 
+        @JsonIgnore
+        @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)//mapeamento para o restaurante e endereco ter o mesmo id
+        private Restaurante restaurante;
+
         public Endereco(){
         }
 
@@ -77,6 +81,14 @@ import java.util.Objects;
 
         public void setCliente(Cliente cliente) {
             this.cliente = cliente;
+        }
+
+        public Restaurante getRestaurante() {
+            return restaurante;
+        }
+
+        public void setRestaurante(Restaurante restaurante) {
+            this.restaurante = restaurante;
         }
 
         @Override

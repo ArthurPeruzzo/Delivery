@@ -1,6 +1,7 @@
 package com.arthur.delivery.entidades;
 
 import com.arthur.delivery.entidades.enums.TipoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Date horaPedido;
     private Double valorEntrega;
     private TipoPagamento TipoPagamento;
@@ -101,7 +103,7 @@ public class Pedido implements Serializable {
         for(PedidoItem x : itens){
             soma += x.getSubTotal();
         }
-        return soma;
+        return soma + valorEntrega;
     }
 
     @Override
