@@ -42,10 +42,6 @@ public class PedidoItem implements Serializable {
         this.preco = preco;
     }
 
-    public Double subTotal(){
-        return preco * quantidade;
-    }
-
     public Item getItem() {
         return id.getItem();
     }
@@ -53,6 +49,10 @@ public class PedidoItem implements Serializable {
     public void setItem(Item item) {
 
         id.setItem(item);
+    }
+
+    public Double getSubTotal(){
+        return preco * quantidade;
     }
 
     @JsonIgnore
