@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -18,7 +19,6 @@ import java.util.Arrays;
 @Profile("test") //especifica para o perfil de teste
 public class TesteConfig implements CommandLineRunner { //irá executar o método run assim que o programa for executado
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    private static final SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -62,15 +62,15 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
 
         entregadorRepository.saveAll(Arrays.asList(entregador1, entregador2, entregador3));
 
-        Entrega entrega1 = new Entrega(null, sdf.parse("20/03/2021 19:25:35"), sdf.parse("20/03/2021 20:25:35"), 4, entregador1);
-        Entrega entrega2 = new Entrega(null, sdf.parse("21/03/2021 20:34:23"), sdf.parse("21/03/2021 21:01:35"), 5, entregador2);
-        Entrega entrega3 = new Entrega(null, sdf.parse("22/03/2021 21:10:35"), sdf.parse("22/03/2021 21:55:12"), 3, entregador1);
+        Entrega entrega1 = new Entrega(null, LocalDateTime.of(2021, 03, 20, 21, 30), LocalDateTime.of(2021, 03, 20, 22, 00), 4, entregador1);
+        Entrega entrega2 = new Entrega(null, LocalDateTime.of(2021, 03, 21, 20, 34), LocalDateTime.of(2021, 03, 21, 21, 10), 5, entregador2);
+        Entrega entrega3 = new Entrega(null, LocalDateTime.of(2021, 03, 22, 21, 00), LocalDateTime.of(2021, 03, 22, 21, 45), 3, entregador1);
 
         entregaRepository.saveAll(Arrays.asList(entrega1, entrega2, entrega3));
 
-        Pedido pedido1 = new Pedido(null, sdf.parse("20/03/2021 19:25:35"), 10.00, TipoPagamento.DINHEIRO, entrega1,cliente1);
-        Pedido pedido2 = new Pedido(null, sdf.parse("21/03/2021 20:43:35"), 10.00, TipoPagamento.CARTAO, entrega2, cliente2);
-        Pedido pedido3 = new Pedido(null, sdf.parse("22/03/2021 22:15:35"), 10.00, TipoPagamento.DINHEIRO, entrega3, cliente3);
+        Pedido pedido1 = new Pedido(null, LocalDateTime.of(2021, 03, 20, 20, 30), 10.00, TipoPagamento.DINHEIRO, entrega1,cliente1, null);
+        Pedido pedido2 = new Pedido(null, LocalDateTime.of(2021, 03, 21, 20, 25 ), 10.00, TipoPagamento.CARTAO, entrega2, cliente2, null);
+        Pedido pedido3 = new Pedido(null, LocalDateTime.of(2021, 03, 22, 20, 15), 10.00, TipoPagamento.DINHEIRO, entrega3, cliente3, null);
 
         pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 
@@ -99,6 +99,14 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
         Restaurante restaurante3 = new Restaurante(null ,"Los Hermanos Delivery", LocalTime.of(18, 15),LocalTime.of(22, 30),4, 6595211, "994721230", enderecoRestaurante3);
 
         restauranteRepository.saveAll(Arrays.asList(restaurante1, restaurante2, restaurante3));
+
+        //associacao entre restaurante e pedido
+
+        pedido1.setRestaurante(restaurante1);
+        pedido2.setRestaurante(restaurante2);
+        pedido3.setRestaurante(restaurante1);
+
+        pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 
     }
 

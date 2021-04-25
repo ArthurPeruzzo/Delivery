@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,10 +18,8 @@ public class Entrega implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    private Date horarioSaida;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    private Date horarioEntrega;
+    private LocalDateTime horarioSaida;
+    private LocalDateTime horarioEntrega;
     private Integer avaliacao;
 
     @ManyToOne
@@ -28,13 +27,13 @@ public class Entrega implements Serializable {
     private Entregador entregador;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "entregas")
+    @OneToMany(mappedBy = "entrega")
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Entrega(){
     }
 
-    public Entrega(Long id, Date horarioSaida, Date horarioEntrega, Integer avaliacao, Entregador entregador) {
+    public Entrega(Long id, LocalDateTime horarioSaida, LocalDateTime horarioEntrega, Integer avaliacao, Entregador entregador) {
         this.id = id;
         this.horarioSaida = horarioSaida;
         this.horarioEntrega = horarioEntrega;
@@ -50,19 +49,19 @@ public class Entrega implements Serializable {
         this.id = id;
     }
 
-    public Date getHorarioSaida() {
+    public LocalDateTime getHorarioSaida() {
         return horarioSaida;
     }
 
-    public void setHorarioSaida(Date horarioSaida) {
+    public void setHorarioSaida(LocalDateTime horarioSaida) {
         this.horarioSaida = horarioSaida;
     }
 
-    public Date getHorarioEntrega() {
+    public LocalDateTime getHorarioEntrega() {
         return horarioEntrega;
     }
 
-    public void setHorarioEntrega(Date horarioEntrega) {
+    public void setHorarioEntrega(LocalDateTime horarioEntrega) {
         this.horarioEntrega = horarioEntrega;
     }
 

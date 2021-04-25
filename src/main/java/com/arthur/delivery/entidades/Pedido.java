@@ -1,13 +1,11 @@
 package com.arthur.delivery.entidades;
 
 import com.arthur.delivery.entidades.enums.TipoPagamento;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,14 +16,13 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    private Date horaPedido;
+    private LocalDateTime horaPedido;
     private Double valorEntrega;
     private TipoPagamento TipoPagamento;
 
     @ManyToOne
-    @JoinColumn(name = "Entrega_id")//fala qual vai ser o nome da chave estrangeira
-    private Entrega entregas;
+    @JoinColumn(name = "restaurante_id")//fala qual vai ser o nome da chave estrangeira
+    private Restaurante restaurante;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")//fala qual vai ser o nome da chave estrangeira
@@ -34,16 +31,21 @@ public class Pedido implements Serializable {
     @OneToMany(mappedBy = "id.pedido")
     private List<PedidoItem> itens = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "Entrega_id")//fala qual vai ser o nome da chave estrangeira
+    private Entrega entrega;
+
     public Pedido(){
     }
 
-    public Pedido(Long id, Date horaPedido, Double valorEntrega, TipoPagamento tipoPagamento, Entrega entregas, Cliente cliente) {
+    public Pedido(Long id, LocalDateTime horaPedido, Double valorEntrega, TipoPagamento tipoPagamento, Entrega entrega, Cliente cliente, Restaurante restaurante) {
         this.id = id;
         this.horaPedido = horaPedido;
         this.valorEntrega = valorEntrega;
         TipoPagamento = tipoPagamento;
-        this.entregas = entregas;
+        this.entrega = entrega;
         this.cliente = cliente;
+        this.restaurante = restaurante;
     }
 
     public Long getId() {
@@ -54,11 +56,11 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public Date getHoraPedido() {
+    public LocalDateTime getHoraPedido() {
         return horaPedido;
     }
 
-    public void setHoraPedido(Date horaPedido) {
+    public void setHoraPedido(LocalDateTime horaPedido) {
         this.horaPedido = horaPedido;
     }
 
@@ -79,11 +81,11 @@ public class Pedido implements Serializable {
     }
 
     public Entrega getEntregas() {
-        return entregas;
+        return entrega;
     }
 
     public void setEntregas(Entrega entregas) {
-        this.entregas = entregas;
+        this.entrega = entregas;
     }
 
     public Cliente getCliente() {
@@ -96,6 +98,14 @@ public class Pedido implements Serializable {
 
     public List<PedidoItem> getItens() {
         return itens;
+    }
+
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
+
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
     }
 
     public Double getTotal(){ //tem que colocar o get para aparecer o metodo

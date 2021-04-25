@@ -1,8 +1,12 @@
 package com.arthur.delivery.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +26,10 @@ public class Restaurante implements Serializable {
     @OneToOne
     @MapsId
     private Endereco endereco;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurante")
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Restaurante(){
     }
@@ -99,6 +107,10 @@ public class Restaurante implements Serializable {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
     @Override

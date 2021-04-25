@@ -22,7 +22,7 @@ public class Entregador implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "entregador")
-    private List<Entrega> entregas = new ArrayList<>();
+    private List<Entrega> entrega = new ArrayList<>();
 
     public Entregador(){
     }
@@ -75,8 +75,8 @@ public class Entregador implements Serializable {
         this.CNH = CNH;
     }
 
-    public List<Entrega> getEntregas() {
-        return entregas;
+    public List<Entrega> getEntrega() {
+        return entrega;
     }
 
     @Override
