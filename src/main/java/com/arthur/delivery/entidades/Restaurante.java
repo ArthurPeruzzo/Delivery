@@ -19,7 +19,7 @@ public class Restaurante implements Serializable {
     private String nome;
     private LocalTime horaAbertura;
     private LocalTime horaFechamento;
-    private Integer avaliacao;
+    private Double avaliacao;
     private Integer cnpj;
     private String telefone;
 
@@ -34,7 +34,7 @@ public class Restaurante implements Serializable {
     public Restaurante(){
     }
 
-    public Restaurante(Long id, String nome, LocalTime horaAbertura, LocalTime horaFechamento, Integer avaliacao, Integer cnpj, String telefone, Endereco endereco) {
+    public Restaurante(Long id, String nome, LocalTime horaAbertura, LocalTime horaFechamento, Double avaliacao, Integer cnpj, String telefone, Endereco endereco) {
         this.id = id;
         this.nome = nome;
         this.horaAbertura = horaAbertura;
@@ -77,11 +77,11 @@ public class Restaurante implements Serializable {
         this.horaFechamento = horaFechamento;
     }
 
-    public Integer getAvaliacao() {
+    public Double getAvaliacao() {
         return avaliacao;
     }
 
-    public void setAvaliacao(Integer avaliacao) {
+    public void setAvaliacao(Double avaliacao) {
         this.avaliacao = avaliacao;
     }
 

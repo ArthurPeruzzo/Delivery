@@ -20,7 +20,7 @@ public class Entrega implements Serializable {
     private Long id;
     private LocalDateTime horarioSaida;
     private LocalDateTime horarioEntrega;
-    private Integer avaliacao;
+    private Double avaliacao;
 
     @ManyToOne
     @JoinColumn(name = "Entregador_id")//fala qual vai ser o nome da chave estrangeira
@@ -33,7 +33,7 @@ public class Entrega implements Serializable {
     public Entrega(){
     }
 
-    public Entrega(Long id, LocalDateTime horarioSaida, LocalDateTime horarioEntrega, Integer avaliacao, Entregador entregador) {
+    public Entrega(Long id, LocalDateTime horarioSaida, LocalDateTime horarioEntrega, Double avaliacao, Entregador entregador) {
         this.id = id;
         this.horarioSaida = horarioSaida;
         this.horarioEntrega = horarioEntrega;
@@ -65,11 +65,11 @@ public class Entrega implements Serializable {
         this.horarioEntrega = horarioEntrega;
     }
 
-    public Integer getAvaliacao() {
+    public Double getAvaliacao() {
         return avaliacao;
     }
 
-    public void setAvaliacao(Integer avaliacao) {
+    public void setAvaliacao(Double avaliacao) {
         this.avaliacao = avaliacao;
     }
 

@@ -8,17 +8,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.Arrays;
 
 @Configuration //fala que essa classe é especifica para configuração
 @Profile("test") //especifica para o perfil de teste
 public class TesteConfig implements CommandLineRunner { //irá executar o método run assim que o programa for executado
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -30,25 +26,25 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
     private EntregadorRepository entregadorRepository;
 
     @Autowired
-    EntregaRepository entregaRepository;
+    private EntregaRepository entregaRepository;
 
     @Autowired
-    ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
     @Autowired
-    PedidoRepository pedidoRepository;
+    private PedidoRepository pedidoRepository;
 
     @Autowired
-    PedidoItemRepository pedidoItemRepository;
+    private PedidoItemRepository pedidoItemRepository;
 
     @Autowired
-    RestauranteRepository restauranteRepository;
+    private RestauranteRepository restauranteRepository;
 
     @Override
     public void run(String... args) throws Exception {
-        Endereco endereco1 = new Endereco(null, "Coronel passos maia", "Centro", "Sao domingos", "SC");
-        Endereco endereco2 = new Endereco(null, "Av.Brasil", "Centro", "São Paulo", "SP");
-        Endereco endereco3 = new Endereco(null, "Rua Jardim Souza", "Centro", "Pato Branco", "PR");
+        Endereco endereco1 = new Endereco(null, "Coronel passos maia", "Centro", "Pato Branco", "PR");
+        Endereco endereco2 = new Endereco(null, "Av.Brasil", "Centro", "Pato Branco", "PR");
+        Endereco endereco3 = new Endereco(null, "Rua Jardim Souza", "Zona Norte", "Pato Branco", "PR");
 
         Cliente cliente1 = new Cliente(null, "Arthur", "arthur@gmail.com", "99323502", 12345674, endereco1);
         Cliente cliente2 = new Cliente(null, "Ernani", "ernani@gmail.com", "96324322", 142342414, endereco2);
@@ -62,9 +58,9 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
 
         entregadorRepository.saveAll(Arrays.asList(entregador1, entregador2, entregador3));
 
-        Entrega entrega1 = new Entrega(null, LocalDateTime.of(2021, 03, 20, 21, 30), LocalDateTime.of(2021, 03, 20, 22, 00), 4, entregador1);
-        Entrega entrega2 = new Entrega(null, LocalDateTime.of(2021, 03, 21, 20, 34), LocalDateTime.of(2021, 03, 21, 21, 10), 5, entregador2);
-        Entrega entrega3 = new Entrega(null, LocalDateTime.of(2021, 03, 22, 21, 00), LocalDateTime.of(2021, 03, 22, 21, 45), 3, entregador1);
+        Entrega entrega1 = new Entrega(null, LocalDateTime.of(2021, 03, 20, 21, 30), LocalDateTime.of(2021, 03, 20, 22, 00), 4.3, entregador1);
+        Entrega entrega2 = new Entrega(null, LocalDateTime.of(2021, 03, 21, 21, 14), LocalDateTime.of(2021, 03, 21, 21, 27), 5.2, entregador2);
+        Entrega entrega3 = new Entrega(null, LocalDateTime.of(2021, 03, 22, 21, 00), LocalDateTime.of(2021, 03, 22, 21, 30), 3.9, entregador1);
 
         entregaRepository.saveAll(Arrays.asList(entrega1, entrega2, entrega3));
 
@@ -94,9 +90,9 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
         Endereco enderecoRestaurante2 = new Endereco(null, "Av.Paulista", "zona norte", "São Paulo", "SP");
         Endereco enderecoRestaurante3 = new Endereco(null, "Rua JK", "Centro", "Pato Branco", "PR");
 
-        Restaurante restaurante1 = new Restaurante(null ,"Rock Delivery", LocalTime.of(18, 30),LocalTime.of(23, 00),4, 33322211, "98991230", enderecoRestaurante1);
-        Restaurante restaurante2 = new Restaurante(null ,"Viking Delivery", LocalTime.of(18, 30),LocalTime.of(23, 30),5, 65422211, "99943230", enderecoRestaurante2);
-        Restaurante restaurante3 = new Restaurante(null ,"Los Hermanos Delivery", LocalTime.of(18, 15),LocalTime.of(22, 30),4, 6595211, "994721230", enderecoRestaurante3);
+        Restaurante restaurante1 = new Restaurante(null ,"Rock Delivery", LocalTime.of(18, 30),LocalTime.of(23, 00),4.2, 33322211, "98991230", enderecoRestaurante1);
+        Restaurante restaurante2 = new Restaurante(null ,"Viking Delivery", LocalTime.of(18, 30),LocalTime.of(23, 30),5.0, 65422211, "99943230", enderecoRestaurante2);
+        Restaurante restaurante3 = new Restaurante(null ,"Los Hermanos Delivery", LocalTime.of(18, 15),LocalTime.of(22, 30),4.3, 6595211, "994721230", enderecoRestaurante3);
 
         restauranteRepository.saveAll(Arrays.asList(restaurante1, restaurante2, restaurante3));
 
