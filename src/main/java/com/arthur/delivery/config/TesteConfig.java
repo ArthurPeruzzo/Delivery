@@ -62,8 +62,8 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
         entregadorRepository.saveAll(Arrays.asList(entregador1, entregador2, entregador3));
 
         Entrega entrega1 = new Entrega(null, LocalDateTime.of(2021, 03, 20, 21, 30), LocalDateTime.of(2021, 03, 20, 22, 00), 4.3, entregador1);
-        Entrega entrega2 = new Entrega(null, LocalDateTime.of(2021, 03, 21, 21, 14), LocalDateTime.of(2021, 03, 21, 21, 27), 5.2, entregador2);
-        Entrega entrega3 = new Entrega(null, LocalDateTime.of(2021, 03, 22, 21, 00), LocalDateTime.of(2021, 03, 22, 21, 30), 3.9, entregador1);
+        Entrega entrega2 = new Entrega(null, LocalDateTime.of(2021, 03, 21, 21, 14), LocalDateTime.of(2021, 03, 21, 22, 10), 4.2, entregador2);
+        Entrega entrega3 = new Entrega(null, LocalDateTime.of(2021, 03, 22, 21, 00), LocalDateTime.of(2021, 03, 22, 22, 52), 3.0, entregador1);
 
         entregaRepository.saveAll(Arrays.asList(entrega1, entrega2, entrega3));
 
@@ -107,9 +107,9 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
 
         pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 
-        Comentario comentario1 = new Comentario(null, "Lanche muito gostoso e entrega rápida!", 4.5);
-        Comentario comentario2 = new Comentario(null, "A entrega atrasou muito", 3.0);
-        Comentario comentario3 = new Comentario(null, "A pizza de quatro queijos é muito boa!", 4.8);
+        Comentario comentario1 = new Comentario(null, "Lanche muito gostoso e entrega rápida!", 4.5, cliente1, restaurante1);
+        Comentario comentario2 = new Comentario(null, "A entrega atrasou muito", 3.0, cliente2, restaurante2);
+        Comentario comentario3 = new Comentario(null, "A pizza de quatro queijos é muito boa!", 4.8, cliente3, restaurante3);
 
         comentarioRepository.saveAll(Arrays.asList(comentario1, comentario2, comentario3));
 

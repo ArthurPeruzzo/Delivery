@@ -31,6 +31,9 @@ public class Restaurante implements Serializable {
     @OneToMany(mappedBy = "restaurante")
     private List<Pedido> pedidos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "restaurante")
+    private List<Comentario> comentarios = new ArrayList<>();
+
     public Restaurante(){
     }
 
@@ -111,6 +114,10 @@ public class Restaurante implements Serializable {
 
     public List<Pedido> getPedidos() {
         return pedidos;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
     }
 
     @Override
