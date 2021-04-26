@@ -40,6 +40,9 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
     @Autowired
     private RestauranteRepository restauranteRepository;
 
+    @Autowired
+    private ComentarioRepository comentarioRepository;
+
     @Override
     public void run(String... args) throws Exception {
         Endereco endereco1 = new Endereco(null, "Coronel passos maia", "Centro", "Pato Branco", "PR");
@@ -103,6 +106,12 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
         pedido3.setRestaurante(restaurante1);
 
         pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
+
+        Comentario comentario1 = new Comentario(null, "Lanche muito gostoso e entrega rápida!", 4.5);
+        Comentario comentario2 = new Comentario(null, "A entrega atrasou muito", 3.0);
+        Comentario comentario3 = new Comentario(null, "A pizza de quatro queijos é muito boa!", 4.8);
+
+        comentarioRepository.saveAll(Arrays.asList(comentario1, comentario2, comentario3));
 
     }
 
