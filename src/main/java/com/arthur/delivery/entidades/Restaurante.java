@@ -31,6 +31,7 @@ public class Restaurante implements Serializable {
     @OneToMany(mappedBy = "restaurante")
     private List<Pedido> pedidos = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurante")
     private List<Comentario> comentarios = new ArrayList<>();
 

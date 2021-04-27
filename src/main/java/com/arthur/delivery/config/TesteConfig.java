@@ -110,8 +110,9 @@ public class TesteConfig implements CommandLineRunner { //irá executar o métod
         Comentario comentario1 = new Comentario(null, "Lanche muito gostoso e entrega rápida!", 4.5, cliente1, restaurante1);
         Comentario comentario2 = new Comentario(null, "A entrega atrasou muito", 3.0, cliente2, restaurante2);
         Comentario comentario3 = new Comentario(null, "A pizza de quatro queijos é muito boa!", 4.8, cliente3, restaurante3);
+        Comentario comentario4 = new Comentario(null, "Lanche bom!", 4.8, cliente1, restaurante3);
 
-        comentarioRepository.saveAll(Arrays.asList(comentario1, comentario2, comentario3));
+        comentarioRepository.saveAll(Arrays.asList(comentario1, comentario2, comentario3, comentario4));
 
     }
 

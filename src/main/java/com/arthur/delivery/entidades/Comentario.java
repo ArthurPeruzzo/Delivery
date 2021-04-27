@@ -16,12 +16,10 @@ public class Comentario implements Serializable {
     private String comentario;
     private Double nota;
 
-
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "restaurante_id")
     private Restaurante restaurante;
@@ -67,6 +65,14 @@ public class Comentario implements Serializable {
 
     public void setRestaurante(Restaurante restaurante) {
         this.restaurante = restaurante;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     @Override
