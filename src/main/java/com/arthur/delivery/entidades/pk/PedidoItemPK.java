@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
+@Embeddable //possibilita que seja feita uma chave composta entre item e pedido
 public class PedidoItemPK implements Serializable {
 
     @ManyToOne
